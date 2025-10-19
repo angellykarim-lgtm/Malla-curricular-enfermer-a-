@@ -4,41 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Malla Curricular - Enfermería</title>
-  <meta name="description" content="Malla Curricular interactiva de Enfermería - Universidad Privada Norbert Wiener" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Overlay móvil -->
   <div id="sidebarOverlay" class="overlay" aria-hidden="true"></div>
-  <!-- Menú hamburguesa -->
   <button id="hamburgerMenu" class="hamburger" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="2" rx="1"></rect><rect x="3" y="11" width="18" height="2" rx="1"></rect><rect x="3" y="16" width="18" height="2" rx="1"></rect></svg>
   </button>
-  <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar" aria-label="Barra lateral">
+  <aside id="sidebar" class="sidebar" aria-label="Barra lateral" aria-hidden="true">
     <div class="sidebar-header">
       <button id="closeSidebar" class="icon-btn" aria-label="Cerrar menú">
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path>
-        </svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
       </button>
       <h2>Controles</h2>
     </div>
     <section class="sidebar-section">
       <h3>Vista</h3>
       <div class="btn-group">
-        <button class="view-btn active" data-view="ciclos" aria-pressed="true" title="Por Ciclos"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"></rect><rect x="13" y="3" width="8" height="8" rx="2"></rect><rect x="3" y="13" width="8" height="8" rx="2"></rect><rect x="13" y="13" width="8" height="8" rx="2"></rect></svg>Por Ciclos</button>
-        <button class="view-btn" data-view="anos" title="Por Años"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="3" rx="1.5"></rect><rect x="3" y="10.5" width="18" height="3" rx="1.5"></rect><rect x="3" y="16" width="18" height="3" rx="1.5"></rect></svg>Por Años</button>
-        <button class="view-btn" data-view="compacta" title="Vista Compacta"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="2" rx="1"></rect><rect x="4" y="11" width="16" height="2" rx="1"></rect><rect x="4" y="16" width="16" height="2" rx="1"></rect></svg>Compacta</button>
+        <button class="view-btn active" data-view="ciclos" aria-pressed="true" title="Por Ciclos">Por Ciclos</button>
+        <button class="view-btn" data-view="anos" title="Por Años">Por Años</button>
+        <button class="view-btn" data-view="compacta" title="Compacta">Compacta</button>
       </div>
     </section>
     <section class="sidebar-section">
       <h3>Tema</h3>
-      <button id="themeToggle" class="toggle-btn" aria-pressed="false" title="Modo día/noche">
-        <span class="icon-sun" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M19.8 4.2l-1.4 1.4M4.2 19.8l1.4-1.4"></path></svg></span>
-        <span class="icon-moon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"></path></svg></span>
-        <span class="toggle-label">Día/Noche</span>
-      </button>
+      <button id="themeToggle" class="toggle-btn" aria-pressed="false" title="Modo día/noche">Día/Noche</button>
     </section>
     <section class="sidebar-section">
       <h3>Filtros</h3>
@@ -56,10 +46,10 @@
     <section class="sidebar-section">
       <h3>Acciones</h3>
       <div class="btn-group vertical">
-        <button id="exportBtn" class="action-btn" title="Exportar Progreso"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 3v10M8 9l4 4 4-4"></path><rect x="4" y="17" width="16" height="4" rx="2"></rect></svg>Exportar Progreso</button>
-        <label for="importFile" class="action-btn" id="importBtn" title="Importar Progreso"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 21V11M16 15l-4-4-4 4"></path><rect x="4" y="3" width="16" height="4" rx="2"></rect></svg>Importar Progreso</label>
+        <button id="exportBtn" class="action-btn" title="Exportar Progreso">Exportar Progreso</button>
+        <label for="importFile" class="action-btn" id="importBtn" title="Importar Progreso">Importar Progreso</label>
         <input id="importFile" type="file" accept="application/json" hidden />
-        <button id="resetBtn" class="action-btn danger" title="Reiniciar Todo"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 8.5 8.5 0 0 1 6.36 2.86M21 12a9 9 0 0 1-9 9 8.5 8.5 0 0 1-6.36-2.86"></path><path d="M7 6H3V2M17 18h4v4"></path></svg>Reiniciar Todo</button>
+        <button id="resetBtn" class="action-btn danger" title="Reiniciar Todo">Reiniciar Todo</button>
       </div>
     </section>
     <section class="sidebar-section">
@@ -71,45 +61,47 @@
       </label>
     </section>
   </aside>
-  <!-- Header -->
   <header class="page-header">
     <div class="title-wrap">
       <h1>Malla Curricular - Enfermería</h1>
       <p class="subtitle">Universidad Privada Norbert Wiener</p>
     </div>
-    <div class="stats">
-      <div class="stat-item">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 12h16M4 6h10M4 18h8"></path></svg></div>
-        <div class="stat-text"><div class="stat-title">Créditos Completados</div><div class="stat-value"><span id="totalCredits">0</span> / 222</div></div>
+    <div class="stats" role="region" aria-label="Estadísticas de avance">
+      <div class="stat-item" role="group" aria-label="Créditos Completados">
+        <div class="stat-title">Créditos Completados</div>
+        <div class="stat-value" id="totalCredits">0 / 222</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 3h14v14H5zM9 21h6" ></path></svg></div>
-        <div class="stat-text"><div class="stat-title">Cursos Completados</div><div class="stat-value"><span id="completedCount">0</span> / <span id="totalCount">53</span></div></div>
+      <div class="stat-item" role="group" aria-label="Cursos Completados">
+        <div class="stat-title">Cursos Completados</div>
+        <div class="stat-value"><span id="completedCount">0</span> / <span id="totalCount">53</span></div>
       </div>
-      <div class="stat-item">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9"></path><path d="M12 7v5l3 3"></path></svg></div>
-        <div class="stat-text"><div class="stat-title">Progreso Total</div><div class="stat-value"><span id="progressPercent">0</span>%</div></div>
+      <div class="stat-item" role="group" aria-label="Progreso Total">
+        <div class="stat-title">Progreso Total</div>
+        <div class="stat-value"><span id="progressPercent">0</span>%</div>
       </div>
     </div>
-    <div class="progress-bar-container" aria-label="Barra de progreso total"><div id="progressBar" class="progress-bar"></div></div>
+    <div class="progress-bar-container" aria-label="Barra de progreso total">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
     <div id="yearProgress" class="year-progress" aria-label="Progreso por año"></div>
-    <div class="legend"><span class="legend-item completed">Completado</span><span class="legend-item available">Disponible</span><span class="legend-item blocked">Bloqueado</span></div>
+    <div class="legend">
+      <span class="legend-item completed">Completado</span>
+      <span class="legend-item available">Disponible</span>
+      <span class="legend-item blocked">Bloqueado</span>
+    </div>
   </header>
-  <!-- Sección de Gráfico -->
-  <section id="chartContainer" class="chart-container">
+  <section id="chartContainer" class="chart-container" aria-label="Distribución de créditos por ciclo">
     <div class="chart-header">
       <h3 id="chartTitle">Distribución de Créditos por Ciclo</h3>
     </div>
     <div class="chart-box">
-      <canvas id="creditsChart" aria-label="Gráfico de créditos por ciclo" role="img"></canvas>
+      <canvas id="creditsChart" role="img" aria-label="Gráfico de barra de créditos por ciclo"></canvas>
     </div>
   </section>
-  <!-- Contenedor principal de cursos -->
   <main>
     <div id="ciclosContainer" class="courses-grid view-ciclos" aria-live="polite"></div>
   </main>
-  <!-- Modal Electivos -->
-  <div id="electivosModal" class="modal" aria-modal="true" aria-labelledby="electivosTitle" aria-hidden="true">
+  <div id="electivosModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="electivosTitle" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="electivosTitle">Selecciona un Curso Electivo</h3>
@@ -118,8 +110,7 @@
       <div id="electivosGrid" class="electivos-grid"></div>
     </div>
   </div>
-  <!-- Modal Información de Curso -->
-  <div id="courseInfoModal" class="modal" aria-modal="true" aria-labelledby="courseInfoTitle" aria-hidden="true">
+  <div id="courseInfoModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="courseInfoTitle" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="courseInfoTitle">Información del Curso</h3>
@@ -128,12 +119,9 @@
       <div id="courseInfoBody" class="modal-body"></div>
     </div>
   </div>
-  <!-- Canvas Confetti -->
   <canvas id="confettiCanvas"></canvas>
-  <!-- Librerías externas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
-  <!-- App -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

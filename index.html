@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Malla Curricular - Enfermería</title>
+  <meta name="description" content="Malla Curricular interactiva de Enfermería - Universidad Privada Norbert Wiener" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Overlay móvil -->
+  <div id="sidebarOverlay" class="overlay" aria-hidden="true"></div>
+
+  <!-- Menú hamburguesa (móvil) -->
+  <button id="hamburgerMenu" class="hamburger" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="2" rx="1"></rect>
+      <rect x="3" y="11" width="18" height="2" rx="1"></rect>
+      <rect x="3" y="16" width="18" height="2" rx="1"></rect>
+    </svg>
+  </button>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar" aria-label="Barra lateral">
+    <div class="sidebar-header">
+      <button id="closeSidebar" class="icon-btn" aria-label="Cerrar menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path>
+        </svg>
+      </button>
+      <h2>Controles</h2>
+    </div>
+
+    <section class="sidebar-section">
+      <h3>Vista</h3>
+      <div class="btn-group">
+        <button class="view-btn active" data-view="ciclos" aria-pressed="true" title="Por Ciclos">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="8" height="8" rx="2"></rect>
+            <rect x="13" y="3" width="8" height="8" rx="2"></rect>
+            <rect x="3" y="13" width="8" height="8" rx="2"></rect>
+            <rect x="13" y="13" width="8" height="8" rx="2"></rect>
+          </svg>
+          <span>Por Ciclos</span>
+        </button>
+        <button class="view-btn" data-view="anos" title="Por Años">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="3" rx="1.5"></rect>
+            <rect x="3" y="10.5" width="18" height="3" rx="1.5"></rect>
+            <rect x="3" y="16" width="18" height="3" rx="1.5"></rect>
+          </svg>
+          <span>Por Años</span>
+        </button>
+        <button class="view-btn" data-view="compacta" title="Vista Compacta">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="6" width="16" height="2" rx="1"></rect>
+            <rect x="4" y="11" width="16" height="2" rx="1"></rect>
+            <rect x="4" y="16" width="16" height="2" rx="1"></rect>
+          </svg>
+          <span>Compacta</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="sidebar-section">
+      <h3>Tema</h3>
+      <button id="themeToggle" class="toggle-btn" aria-pressed="false" title="Modo día/noche">
+        <span class="icon-sun" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M19.8 4.2l-1.4 1.4M4.2 19.8l1.4-1.4"></path>
+          </svg>
+        </span>
+        <span class="icon-moon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"></path>
+          </svg>
+        </span>
+        <span class="toggle-label">Día/Noche</span>
+      </button>
+    </section>
+
+    <section class="sidebar-section">
+      <h3>Filtros</h3>
+      <div class="btn-group">
+        <button class="filter-btn" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="completados">Completados</button>
+        <button class="filter-btn" data-filter="disponibles">Disponibles</button>
+        <button class="filter-btn" data-filter="bloqueados">Bloqueados</button>
+      </div>
+    </section>
+
+    <section class="sidebar-section">
+      <h3>Búsqueda</h3>
+      <input id="searchInput" type="search" placeholder="Buscar por código o nombre…" aria-label="Buscar cursos" />
+    </section>
+
+    <section class="sidebar-section">
+      <h3>Acciones</h3>
+      <div class="btn-group vertical">
+        <button id="exportBtn" class="action-btn" title="Exportar Progreso">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v10M8 9l4 4 4-4"></path>
+            <rect x="4" y="17" width="16" height="4" rx="2"></rect>
+          </svg>
+          <span>Exportar Progreso</span>
+        </button>
+        <label for="importFile" class="action-btn" id="importBtn" title="Importar Progreso">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21V11M16 15l-4-4-4 4"></path>
+            <rect x="4" y="3" width="16" height="4" rx="2"></rect>
+          </svg>
+          <span>Importar Progreso</span>
+        </label>
+        <input id="importFile" type="file" accept="application/json" hidden />
+        <button id="resetBtn" class="action-btn danger" title="Reiniciar Todo">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 0 1 9-9 8.5 8.5 0 0 1 6.36 2.86M21 12a9 9 0 0 1-9 9 8.5 8.5 0 0 1-6.36-2.86"></path>
+            <path d="M7 6H3V2M17 18h4v4"></path>
+          </svg>
+          <span>Reiniciar Todo</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="sidebar-section">
+      <h3>Sonido</h3>
+      <label class="switch">
+        <input id="soundToggle" type="checkbox" />
+        <span class="slider"></span>
+        <span class="switch-label">Efectos de sonido</span>
+      </label>
+    </section>
+  </aside>
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="title-wrap">
+      <h1>Malla Curricular - Enfermería</h1>
+      <p class="subtitle">Universidad Privada Norbert Wiener</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 12h16M4 6h10M4 18h8"></path>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Créditos Completados</div>
+          <div class="stat-value"><span id="totalCredits">0</span> / 222</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 3h14v14H5zM9 21h6" ></path>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Cursos Completados</div>
+          <div class="stat-value"><span id="completedCount">0</span> / <span id="totalCount">53</span></div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9"></path>
+            <path d="M12 7v5l3 3"></path>
+          </svg>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Progreso Total</div>
+          <div class="stat-value"><span id="progressPercent">0</span>%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-bar-container" aria-label="Barra de progreso total">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div id="yearProgress" class="year-progress" aria-label="Progreso por año"></div>
+
+    <div class="legend">
+      <span class="legend-item completed">Completado</span>
+      <span class="legend-item available">Disponible</span>
+      <span class="legend-item blocked">Bloqueado</span>
+    </div>
+  </header>
+
+  <!-- Sección de Gráfico -->
+  <section id="chartContainer" class="chart-container" aria-labelledby="chartTitle">
+    <div class="chart-header">
+      <h3 id="chartTitle">Distribución de Créditos por Ciclo</h3>
+    </div>
+    <canvas id="creditsChart" width="600" height="260" aria-label="Gráfico de créditos por ciclo" role="img"></canvas>
+  </section>
+
+  <!-- Contenedor principal de cursos -->
+  <main>
+    <div id="ciclosContainer" class="courses-grid view-ciclos" aria-live="polite"></div>
+  </main>
+
+  <!-- Modal Electivos -->
+  <div id="electivosModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="electivosTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="electivosTitle">Selecciona un Curso Electivo</h3>
+        <button class="icon-btn" id="closeElectivos" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="electivosGrid" class="electivos-grid"></div>
+    </div>
+  </div>
+
+  <!-- Modal Información de Curso -->
+  <div id="courseInfoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="courseInfoTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="courseInfoTitle">Información del Curso</h3>
+        <button class="icon-btn" id="closeCourseInfo" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="courseInfoBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Canvas Confetti -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Librerías externas -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" integrity="" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js" integrity="" crossorigin="anonymous"></script>
+
+  <!-- App -->
+  <script src="script.js"></script>
+</body>
+                                                  </html>

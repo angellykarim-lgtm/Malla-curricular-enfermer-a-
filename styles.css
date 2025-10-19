@@ -1,69 +1,53 @@
-/* Tipografía fluida y espaciamiento base */
-:root{
-  --fs-h1: clamp(22px, 4.2vw, 30px);
-  --fs-h2: clamp(18px, 3.4vw, 22px);
-  --fs-body: clamp(14px, 2.6vw, 16px);
-  --space: clamp(8px, 2.2vw, 16px);
-}
-h1 { font-size: var(--fs-h1); line-height: 1.15; }
-h2, .group-title { font-size: var(--fs-h2); line-height: 1.2; }
-body, .course-name, .group-subtitle { font-size: var(--fs-body); line-height: 1.35; }
+:root {
+  --m-rose: #db9798;
+  --m-mauve: #a69cac;
+  --m-green: #98a886;
+  --m-yellow: #f2e1ac;
+  --m-blue: #b8c1ec;
+  --m-pink: #e2b8c5;
+  --m-taupe: #a39385;
+  --m-purple: #bcb7d4;
+  --m-grey: #bfc0c0;
 
-/* Tamaño táctil mínimo recomendado (~48px) */
-.view-btn, .filter-btn, .toggle-btn, .action-btn, .approve-btn, .icon-btn, .hamburger {
-  min-height: 48px;            /* objetivo táctil */
-  min-width: 48px;
-  padding: 10px 14px;
-  border-radius: 12px;
-}
-.badge { padding: 6px 12px; }
+  /* Usados para la UI */
+  --bg: #f7f6f4;
+  --panel: #fff;
+  --text: #301a28;
+  --muted: #85788a;
+  --border: #e1d6d3;
+  --shadow: 0 2px 12px rgba(120,52,60,0.09);
 
-/* Ajustes del header en móvil */
-@media (max-width: 991px){
-  .page-header { padding: 16px 16px 6px; }
-  .stats{ grid-template-columns: 1fr; gap: 10px; }
-  .progress-bar-container{ height: 12px; }
-  .year-progress{ grid-template-columns: 1fr; }
-}
+  --accent: var(--m-rose);
+  --accent-2: var(--m-mauve);
+  --accent-3: var(--m-blue);
+  --badge-completed: var(--m-green);
+  --badge-available: var(--m-blue);
+  --badge-blocked: var(--m-taupe);
 
-/* Grid de cursos en móvil */
-@media (max-width: 991px){
-  .courses-grid.view-ciclos,
-  .courses-grid.view-compacta { grid-template-columns: 1fr; gap: 14px; }
-  .group-body { grid-template-columns: 1fr; gap: 12px; }
-  .group-card { border-radius: 14px; }
-  .course-card { padding: 12px; border-radius: 12px; }
-  .course-name { min-height: auto; }
+  --state-completed-bg: #e0efdf;
+  --state-available-bg: #e5ecfa;
+  --state-blocked-bg: #ede7e3;
 }
+.dark {
+  --bg: #2a2430;
+  --panel: #352a3a;
+  --text: #f9f7fa;
+  --muted: #b3a6ba;
+  --border: #594c54;
+  --shadow: 0 2px 14px rgba(50,12,40,0.17);
 
-/* Sidebar off-canvas robusto en móvil */
-@media (max-width: 991px){
-  .sidebar{
-    width: 88vw; max-width: 360px; height: 100vh;
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 1000;
-  }
-  .sidebar.open{ transform: translateX(0); }
-  .overlay{
-    position: fixed; inset: 0; background: rgba(0,0,0,.36);
-    opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 900;
-  }
-  .overlay.active{ opacity: 1; pointer-events: auto; }
-  .hamburger{ display: inline-flex; position: fixed; top: 12px; left: 12px; z-index: 1100; }
-  .page-header, .chart-container, main { margin-left: 0 !important; padding-left: 16px !important; padding-right: 16px !important; }
+  --accent: #db9798;
+  --accent-2: #bcb7d4;
+  --accent-3: #98a886;
+
+  --badge-completed: #bbeb8d;
+  --badge-available: #b2c7fc;
+  --badge-blocked: #ccbfae;
+
+  --state-completed-bg: #3a563a;
+  --state-available-bg: #29466b;
+  --state-blocked-bg: #493a2b;
 }
 
-/* Botones más legibles y contrastados en móvil */
-@media (max-width: 991px){
-  .view-btn.active, .filter-btn.active { box-shadow: 0 2px 10px rgba(0,0,0,.12); }
-  .approve-btn.blocked { opacity: .7; }
-}
-
-/* Gráfico: alto fijo y ancho completo en móvil */
-.chart-box { width: 100%; }
-.chart-box canvas{ width: 100% !important; height: 220px !important; }
-
-/* Evitar solapamiento y desbordes */
-main, .chart-container, .courses-grid, .group-body { min-width: 0; }
-.course-code, .course-credits, .course-name { word-wrap: break-word; overflow-wrap: anywhere; }
+/* Paneles grandes y tarjetas */
+.page-header, .chart-container

@@ -1,228 +1,231 @@
-import React, { useState, useEffect } from 'react';
-import { Check, Lock, BookOpen } from 'lucide-react';
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular - Enfermería | Universidad Wiener</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-const MallaCurricular = () => {
-  const [completedCourses, setCompletedCourses] = useState(new Set());
-  const [totalCredits, setTotalCredits] = useState(0);
-
-  const courses = {
-    ciclo1: [
-      { code: 'AC4012', name: 'INGLÉS I', credits: 3, prereqs: [] },
-      { code: 'EN7011', name: 'PROCESOS BIOLÓGICOS', credits: 6, prereqs: [] },
-      { code: 'EN7012', name: 'PRÁCTICAS DE ENFERMERÍA I', credits: 5, prereqs: [] },
-      { code: 'AC4011', name: 'DESARROLLO HUMANO Y SOCIAL', credits: 4, prereqs: [] },
-      { code: 'TF5012', name: 'ESTRUCTURA Y FUNCIÓN DEL CUERPO HUMANO', credits: 4, prereqs: [] }
-    ],
-    ciclo2: [
-      { code: 'AC4021', name: 'ESTILO DE VIDA, SALUD Y MEDIO AMBIENTE', credits: 4, prereqs: [] },
-      { code: 'AC4022', name: 'INGLÉS II', credits: 2, prereqs: ['AC4012'] },
-      { code: 'EN7021', name: 'SISTEMA MUSCULOESQUELÉTICO', credits: 3, prereqs: ['TF5012'] },
-      { code: 'EN7022', name: 'SISTEMA NERVIOSO Y ENDOCRINO', credits: 5, prereqs: ['TF5012'] },
-      { code: 'EN7023', name: 'PRÁCTICAS DE ENFERMERÍA II', credits: 5, prereqs: ['EN7012'] },
-      { code: 'ND4021', name: 'MECANISMO DE AGRESIÓN Y DEFENSA I', credits: 4, prereqs: ['EN7011'] }
-    ],
-    ciclo3: [
-      { code: 'EN7031', name: 'SISTEMA CARDIORESPIRATORIO', credits: 5, prereqs: ['EN7021'] },
-      { code: 'EN7032', name: 'SISTEMA TEGUMENTARIO', credits: 3, prereqs: ['EN7022'] },
-      { code: 'EN7033', name: 'PRÁCTICAS DE ENFERMERÍA III', credits: 5, prereqs: ['EN7023'] },
-      { code: 'EN7034', name: 'BASES DE LA TERAPEÚTICA FARMACOLÓGICA', credits: 4, prereqs: [] },
-      { code: 'ND4032', name: 'MECANISMOS DE AGRESIÓN Y DEFENSA II', credits: 4, prereqs: ['ND4021'] }
-    ],
-    ciclo4: [
-      { code: 'AC4041', name: 'SALUD PÚBLICA Y SISTEMAS DE SALUD', credits: 5, prereqs: ['AC4021'] },
-      { code: 'EN7041', name: 'SISTEMA URINARIO Y REPRODUCTIVO', credits: 4, prereqs: ['EN7031'] },
-      { code: 'EN7042', name: 'SISTEMA DIGESTIVO', credits: 4, prereqs: ['EN7032'] },
-      { code: 'EN7043', name: 'MECANISMO DE AGRESIÓN Y DEFENSA III', credits: 4, prereqs: ['ND4032'] },
-      { code: 'EN7044', name: 'PRÁCTICAS DE ENFERMERÍA IV', credits: 5, prereqs: ['EN7033'] }
-    ],
-    ciclo5: [
-      { code: 'AC4051', name: 'PREVENCIÓN Y PROMOCIÓN DE LA SALUD', credits: 5, prereqs: ['AC4041'] },
-      { code: 'EN7051', name: 'SALUD DEL NIÑO Y ADOLESCENTE', credits: 7, prereqs: ['EN7044'] },
-      { code: 'EN7052', name: 'SALUD DE LA MUJER Y NEONATO', credits: 7, prereqs: ['EN7044'] },
-      { code: 'ELC01', name: 'ELECTIVO I', credits: 3, prereqs: [] }
-    ],
-    ciclo6: [
-      { code: 'AC4061', name: 'CIENCIA Y DESCUBRIMIENTO', credits: 6, prereqs: [] },
-      { code: 'EN7061', name: 'GESTIÓN CLÍNICA Y HOSPITALARIA', credits: 4, prereqs: ['EN7051'] },
-      { code: 'EN7062', name: 'SALUD DEL ADULTO', credits: 7, prereqs: ['EN7052'] },
-      { code: 'ELC02', name: 'ELECTIVO II', credits: 3, prereqs: [] }
-    ],
-    ciclo7: [
-      { code: 'EN7071', name: 'SALUD DEL ADULTO MAYOR', credits: 7, prereqs: ['EN7062'] },
-      { code: 'EN7072', name: 'SALUD COMUNITARIA Y FAMILIAR', credits: 5, prereqs: ['EN7061'] },
-      { code: 'AC4063', name: 'TENDENCIAS GLOBALES EN SALUD', credits: 3, prereqs: [] },
-      { code: 'ELC03', name: 'ELECTIVO III', credits: 3, prereqs: [] }
-    ],
-    ciclo8: [
-      { code: 'EN7082', name: 'SALUD MENTAL', credits: 4, prereqs: ['EN7072'] },
-      { code: 'EN7083', name: 'CUIDADOS PALIATIVOS Y DEL FIN DE LA VIDA', credits: 4, prereqs: ['AC4051'] },
-      { code: 'EN7084', name: 'URGENCIAS Y EMERGENCIAS', credits: 5, prereqs: ['EN7071'] },
-      { code: 'AC4064', name: 'PROYECTOS DE INTERVENCIÓN EN SALUD', credits: 3, prereqs: [] }
-    ],
-    ciclo9: [
-      { code: 'EN7091', name: 'PRÁCTICAS PRE-PROFESIONALES I', credits: 14, prereqs: ['AC4011', 'AC4012', 'AC4021', 'AC4022', 'AC4041', 'AC4051', 'AC4061', 'ELC01', 'ELC02', 'ELC03', 'EN7011', 'EN7012', 'EN7021', 'EN7022', 'EN7023', 'EN7031', 'EN7032', 'EN7033', 'EN7041', 'EN7042', 'EN7043', 'EN7044', 'EN7051', 'EN7052', 'EN7061', 'EN7062', 'EN7071', 'EN7072', 'EN7082', 'EN7083', 'EN7084', 'ND4021', 'ND4032', 'TF5012'] },
-      { code: 'EN7092', name: 'SEMINARIOS DE INTEGRACIÓN CLÍNICA I', credits: 1, prereqs: ['AC4064'] },
-      { code: 'EN7093', name: 'SEMINARIO DE INVESTIGACIÓN', credits: 3, prereqs: ['AC4061'] }
-    ],
-    ciclo10: [
-      { code: 'EN7101', name: 'PRÁCTICAS PRE-PROFESIONALES II', credits: 14, prereqs: ['EN7091'] },
-      { code: 'EN7102', name: 'SEMINARIOS DE INTEGRACIÓN CLÍNICA II', credits: 1, prereqs: ['EN7092'] },
-      { code: 'EN7103', name: 'TRABAJO DE INVESTIGACIÓN', credits: 3, prereqs: ['EN7093'] }
-    ]
-  };
-
-  const electivos = [
-    { code: 'AC4E01', name: 'EDUCACIÓN, DERECHOS Y AUTONOMÍA', credits: 3 },
-    { code: 'LC5E01', name: 'SALUD AMBIENTAL Y URBANA', credits: 3 },
-    { code: 'MH3E01', name: 'DETERMINANTES SOCIALES DE SALUD', credits: 3 },
-    { code: 'MH3E02', name: 'ANTROPOLOGÍA MÉDICA', credits: 3 },
-    { code: 'ND4E01', name: 'LA DIETA OCCIDENTAL', credits: 3 },
-    { code: 'OD5E01', name: 'MÉTODOS DE INVESTIGACIÓN', credits: 3 },
-    { code: 'PS4E01', name: 'MANEJO DEL ESTRÉS', credits: 3 },
-    { code: 'PS4E02', name: 'FUNDAMENTOS DEL BIENESTAR', credits: 3 },
-    { code: 'TF5E01', name: 'IMPACTO DE LA ACTIVIDAD FÍSICA', credits: 3 }
-  ];
-
-  const isUnlocked = (course) => {
-    if (course.prereqs.length === 0) return true;
-    return course.prereqs.every(prereq => completedCourses.has(prereq));
-  };
-
-  const toggleCourse = (courseCode, credits) => {
-    const newCompleted = new Set(completedCourses);
-    if (newCompleted.has(courseCode)) {
-      newCompleted.delete(courseCode);
-      setTotalCredits(totalCredits - credits);
-    } else {
-      newCompleted.add(courseCode);
-      setTotalCredits(totalCredits + credits);
-    }
-    setCompletedCourses(newCompleted);
-  };
-
-  const CourseCard = ({ course }) => {
-    const completed = completedCourses.has(course.code);
-    const unlocked = isUnlocked(course);
-    
-    return (
-      <div
-        onClick={() => unlocked && toggleCourse(course.code, course.credits)}
-        className={`
-          relative p-3 rounded-lg border-2 transition-all cursor-pointer
-          ${completed ? 'bg-[#9CA896] border-[#7A8A72] text-white' : 
-            unlocked ? 'bg-white border-[#C5B4A0] hover:border-[#B5A58F] hover:shadow-md' : 
-            'bg-[#E8E3DD] border-[#D4CFC8] opacity-60 cursor-not-allowed'}
-        `}
-      >
-        <div className="flex justify-between items-start mb-1">
-          <span className="font-bold text-xs">{course.code}</span>
-          <div className="flex items-center gap-1">
-            <span className="text-xs bg-[#B8A598] text-white px-2 py-0.5 rounded-full">
-              {course.credits} cr
-            </span>
-            {completed && <Check size={16} className="text-white" />}
-            {!unlocked && <Lock size={16} className="text-[#A39B92]" />}
-          </div>
-        </div>
-        <p className="text-xs font-medium leading-tight">{course.name}</p>
-        {course.prereqs.length > 0 && (
-          <div className="mt-2 text-xs text-[#8B8379]">
-            <span className="font-semibold">Req:</span> {course.prereqs.slice(0, 2).join(', ')}
-            {course.prereqs.length > 2 && ` +${course.prereqs.length - 2}`}
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F2ED] to-[#EAE5DD] p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border-2 border-[#D4CFC8]">
-          <h1 className="text-3xl font-bold text-[#6B635A] mb-2">
-            Malla Curricular - Enfermería
-          </h1>
-          <p className="text-[#9B9189] mb-4">Universidad Privada Norbert Wiener</p>
-          <div className="flex gap-6 items-center flex-wrap">
-            <div className="flex items-center gap-2">
-              <BookOpen className="text-[#B8A598]" size={24} />
-              <div>
-                <p className="text-sm text-[#8B8379]">Créditos Completados</p>
-                <p className="text-2xl font-bold text-[#7A8A72]">{totalCredits} / 222</p>
-              </div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Opciones</h3>
+                <button class="close-sidebar" id="closeSidebar">&times;</button>
             </div>
-            <div className="flex gap-4 text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#9CA896] rounded"></div>
-                <span className="text-[#6B635A]">Completado</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-white border-2 border-[#C5B4A0] rounded"></div>
-                <span className="text-[#6B635A]">Disponible</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#E8E3DD] rounded"></div>
-                <span className="text-[#6B635A]">Bloqueado</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ciclos */}
-        {Object.entries(courses).map(([ciclo, coursesInCiclo], index) => (
-          <div key={ciclo} className="mb-6">
-            <div className="bg-[#A39B92] text-white px-4 py-2 rounded-t-lg">
-              <h2 className="text-lg font-bold">
-                {`Ciclo ${index + 1} - Año ${Math.floor(index / 2) + 1} (${index % 2 === 0 ? '1er' : '2do'} Semestre)`}
-              </h2>
-            </div>
-            <div className="bg-white rounded-b-lg p-4 shadow-md border-2 border-[#D4CFC8] border-t-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {coursesInCiclo.map(course => (
-                  <CourseCard key={course.code} course={course} />
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {/* Electivos */}
-        <div className="mb-6">
-          <div className="bg-[#B8A598] text-white px-4 py-2 rounded-t-lg">
-            <h2 className="text-lg font-bold">Cursos Electivos (Elegir 3)</h2>
-          </div>
-          <div className="bg-white rounded-b-lg p-4 shadow-md border-2 border-[#D4CFC8] border-t-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {electivos.map(course => (
-                <div
-                  key={course.code}
-                  onClick={() => toggleCourse(course.code, course.credits)}
-                  className={`
-                    p-3 rounded-lg border-2 transition-all cursor-pointer
-                    ${completedCourses.has(course.code) ? 
-                      'bg-[#9CA896] border-[#7A8A72] text-white' : 
-                      'bg-white border-[#C5B4A0] hover:border-[#B5A58F] hover:shadow-md'}
-                  `}
-                >
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="font-bold text-xs">{course.code}</span>
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs bg-[#B8A598] text-white px-2 py-0.5 rounded-full">
-                        {course.credits} cr
-                      </span>
-                      {completedCourses.has(course.code) && <Check size={16} className="text-white" />}
-                    </div>
-                  </div>
-                  <p className="text-xs font-medium">{course.name}</p>
+            
+            <div class="sidebar-section">
+                <h4>Vista</h4>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="ciclos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Por Ciclos
+                    </button>
+                    <button class="view-btn" data-view="anos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="4"></rect>
+                            <rect x="3" y="10" width="18" height="4"></rect>
+                            <rect x="3" y="16" width="18" height="4"></rect>
+                        </svg>
+                        Por Años
+                    </button>
+                    <button class="view-btn" data-view="compacta">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="4" y1="6" x2="20" y2="6"></line>
+                            <line x1="4" y1="12" x2="20" y2="12"></line>
+                            <line x1="4" y1="18" x2="20" y2="18"></line>
+                        </svg>
+                        Compacta
+                    </button>
                 </div>
-              ))}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export default MallaCurricular;
+            <div class="sidebar-section">
+                <h4>Tema</h4>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="theme-btn">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span id="themeText">Modo Nocturno</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Filtros</h4>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="todos">Todos</button>
+                    <button class="filter-btn" data-filter="completados">Completados</button>
+                    <button class="filter-btn" data-filter="disponibles">Disponibles</button>
+                    <button class="filter-btn" data-filter="bloqueados">Bloqueados</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Búsqueda</h4>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar curso...">
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Acciones</h4>
+                <button class="action-btn" id="exportBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Exportar Progreso
+                </button>
+                <button class="action-btn" id="importBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Importar Progreso
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+                <button class="action-btn danger" id="resetBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    Reiniciar Todo
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Sonido</h4>
+                <label class="switch">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="switch-label">Efectos de sonido</span>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="header">
+            <h1>Malla Curricular - Enfermería</h1>
+            <p class="subtitle">Universidad Privada Norbert Wiener</p>
+            
+            <div class="stats-container">
+                <div class="stats">
+                    <div class="stat-item">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        <div>
+                            <p class="stat-label">Créditos Completados</p>
+                            <p class="stat-value"><span id="totalCredits">0</span> / 222</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <div>
+                            <p class="stat-label">Cursos Completados</p>
+                            <p class="stat-value"><span id="completedCount">0</span> / <span id="totalCount">53</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <div>
+                            <p class="stat-label">Progreso Total</p>
+                            <p class="stat-value"><span id="progressPercent">0</span>%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="year-progress" id="yearProgress"></div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box completed"></div>
+                    <span>Completado</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box available"></div>
+                    <span>Disponible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box locked"></div>
+                    <span>Bloqueado</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container" id="chartContainer">
+            <h3>Distribución de Créditos por Ciclo</h3>
+            <canvas id="creditsChart"></canvas>
+        </div>
+
+        <div id="ciclosContainer" class="view-ciclos"></div>
+
+        <div id="electivosModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Selecciona un Curso Electivo</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body" id="electivosGrid"></div>
+            </div>
+        </div>
+
+        <div id="courseInfoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="courseInfoTitle">Información del Curso</h2>
+                    <span class="close" id="closeCourseInfo">&times;</span>
+                </div>
+                <div class="modal-body" id="courseInfoBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+```

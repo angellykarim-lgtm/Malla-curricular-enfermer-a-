@@ -1,0 +1,440 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --morandi-sage: #9CA896;
+    --morandi-sage-dark: #7A8A72;
+    --morandi-beige: #C5B4A0;
+    --morandi-beige-dark: #B5A58F;
+    --morandi-rose: #B8A598;
+    --morandi-gray: #A39B92;
+    --morandi-light: #E8E3DD;
+    --morandi-lighter: #F5F2ED;
+    --morandi-border: #D4CFC8;
+    --morandi-text: #6B635A;
+    --morandi-text-light: #8B8379;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--morandi-lighter) 0%, var(--morandi-light) 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    color: var(--morandi-text);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--morandi-border);
+}
+
+.header h1 {
+    color: var(--morandi-text);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--morandi-text-light);
+    margin-bottom: 1.5rem;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--morandi-rose);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--morandi-text-light);
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: var(--morandi-sage-dark);
+}
+
+.legend {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-box {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+}
+
+.legend-box.completed {
+    background: var(--morandi-sage);
+}
+
+.legend-box.available {
+    background: white;
+    border: 2px solid var(--morandi-beige);
+}
+
+.legend-box.locked {
+    background: var(--morandi-light);
+}
+
+.ciclo {
+    margin-bottom: 2rem;
+}
+
+.ciclo-header {
+    background: var(--morandi-gray);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.ciclo-header h2 {
+    font-size: 1.25rem;
+}
+
+.ciclo-body {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0 0 0.75rem 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 2px solid var(--morandi-border);
+    border-top: none;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.course-card {
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid var(--morandi-beige);
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover:not(.locked) {
+    border-color: var(--morandi-beige-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.course-card.completed {
+    background: var(--morandi-sage);
+    border-color: var(--morandi-sage-dark);
+    color: white;
+}
+
+.course-card.locked {
+    background: var(--morandi-light);
+    border-color: var(--morandi-border);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.course-card.electivo {
+    border-color: var(--morandi-rose);
+    background: linear-gradient(135deg, white 0%, #FAF8F6 100%);
+}
+
+.course-card.electivo:hover:not(.locked) {
+    border-color: var(--morandi-rose);
+    box-shadow: 0 4px 12px rgba(184, 165, 152, 0.3);
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.course-code {
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+.course-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.course-credits {
+    background: var(--morandi-rose);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.course-card.completed .course-credits {
+    background: var(--morandi-sage-dark);
+}
+
+.course-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.check-icon {
+    color: white;
+}
+
+.lock-icon {
+    color: var(--morandi-text-light);
+}
+
+.course-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+
+.course-prereqs {
+    font-size: 0.75rem;
+    color: var(--morandi-text-light);
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--morandi-border);
+}
+
+.course-card.completed .course-prereqs {
+    color: rgba(255, 255, 255, 0.8);
+    border-top-color: rgba(255, 255, 255, 0.3);
+}
+
+.prereq-label {
+    font-weight: 600;
+}
+
+.select-electivo-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--morandi-rose) 0%, var(--morandi-beige) 100%);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.select-electivo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(184, 165, 152, 0.4);
+}
+
+.selected-electivo {
+    background: var(--morandi-sage);
+    border-color: var(--morandi-sage-dark);
+    color: white;
+}
+
+.selected-electivo .course-credits {
+    background: var(--morandi-sage-dark);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(107, 99, 90, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: white;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background: var(--morandi-rose);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+}
+
+.close {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.close:hover {
+    transform: scale(1.1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    max-height: calc(90vh - 100px);
+    overflow-y: auto;
+}
+
+#electivosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.electivo-option {
+    padding: 1rem;
+    border: 2px solid var(--morandi-beige);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.electivo-option:hover {
+    border-color: var(--morandi-rose);
+    box-shadow: 0 4px 12px rgba(184, 165, 152, 0.3);
+    transform: translateY(-2px);
+}
+
+.electivo-option.selected {
+    background: var(--morandi-sage);
+    border-color: var(--morandi-sage-dark);
+    color: white;
+}
+
+.electivo-option .course-credits {
+    background: var(--morandi-rose);
+}
+
+.electivo-option.selected .course-credits {
+    background: var(--morandi-sage-dark);
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .stats {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .legend {
+        flex-wrap: wrap;
+    }
+
+    .courses-grid,
+    #electivosGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--morandi-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--morandi-beige);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--morandi-beige-dark);
+}
+```

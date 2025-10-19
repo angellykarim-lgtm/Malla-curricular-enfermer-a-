@@ -1,0 +1,196 @@
+/* Paleta Morandi */
+:root {
+  --color-bg: #f4f1ee;
+  --color-primary: #a89f91;
+  --color-secondary: #c1b6a4;
+  --color-accent: #d6cfc4;
+  --color-text: #3e3e3e;
+  --color-completed: #a3b18a;
+  --color-available: #fefae0;
+  --color-locked: #d3cfcf;
+  --color-danger: #d9534f;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+header {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  display: block;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-bar-container {
+  background: #ccc;
+  height: 10px;
+  margin: 0.5rem auto;
+  width: 80%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#progressBar {
+  height: 100%;
+  background: var(--color-completed);
+  width: 0%;
+}
+
+#yearProgress {
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.legend-item {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.legend-item.completed { background: var(--color-completed); }
+.legend-item.available { background: var(--color-available); }
+.legend-item.locked { background: var(--color-locked); }
+
+aside#sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100%;
+  background: var(--color-secondary);
+  padding: 1rem;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+aside#sidebar.open {
+  left: 0;
+}
+
+#sidebarOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 999;
+}
+
+#sidebarOverlay.active {
+  display: block;
+}
+
+aside section {
+  margin-bottom: 1.5rem;
+}
+
+aside button, aside input {
+  display: block;
+  width: 100%;
+  margin: 0.3rem 0;
+  padding: 0.5rem;
+  border: none;
+  background: white;
+  color: var(--color-text);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+aside button.danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px; width: 16px;
+  left: 2px; bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--color-completed);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+}

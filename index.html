@@ -83,7 +83,7 @@
     <section class="sidebar-section">
       <h3>Filtros</h3>
       <div class="btn-group">
-        <button class="filter-btn" data-filter="todos">Todos</button>
+        <button class="filter-btn active" data-filter="todos">Todos</button>
         <button class="filter-btn" data-filter="completados">Completados</button>
         <button class="filter-btn" data-filter="disponibles">Disponibles</button>
         <button class="filter-btn" data-filter="bloqueados">Bloqueados</button>
@@ -155,7 +155,7 @@
       <div class="stat-item">
         <div class="stat-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 3h14v14H5zM9 21h6" ></path>
+            <path d="M5 3h14v14H5zM9 21h6"></path>
           </svg>
         </div>
         <div class="stat-text">
@@ -195,7 +195,9 @@
     <div class="chart-header">
       <h3 id="chartTitle">Distribución de Créditos por Ciclo</h3>
     </div>
-    <canvas id="creditsChart" width="600" height="260" aria-label="Gráfico de créditos por ciclo" role="img"></canvas>
+    <div class="chart-box">
+      <canvas id="creditsChart" aria-label="Gráfico de créditos por ciclo" role="img"></canvas>
+    </div>
   </section>
 
   <!-- Contenedor principal de cursos -->
@@ -237,10 +239,10 @@
   <canvas id="confettiCanvas"></canvas>
 
   <!-- Librerías externas -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" integrity="" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js" integrity="" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js" crossorigin="anonymous"></script>
 
   <!-- App -->
   <script src="script.js"></script>
 </body>
-                                                  </html>
+</html>

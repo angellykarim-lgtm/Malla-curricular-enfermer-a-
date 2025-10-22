@@ -1,32 +1,55 @@
 :root{
   --m-rose:#ae6c79; --m-mauve:#a68fa8; --m-green:#7b917a; --m-blue:#7a89b8;
   --m-taupe:#a39385; --m-grey:#bfc0c0;
+
   --bg:#f7f6f4; --panel:#fff; --text:#291a1a; --muted:#79646a; --border:#dacdcb;
   --shadow:0 2px 12px rgba(100,30,30,0.12);
+
   --accent:var(--m-rose); --accent-2:var(--m-blue); --accent-3:var(--m-mauve);
 }
+/* Modo oscuro */
 .dark{
   --bg:#2a2430; --panel:#372537; --text:#f9f7fa; --muted:#b3a6ba; --border:#594c54;
   --shadow:0 2px 16px rgba(40,20,40,0.18);
   --accent:#db9798; --accent-2:#ada9dc; --accent-3:#98a886;
 }
-*{box-sizing:border-box} html,body{height:100%}
+/* Paleta alterna (más “masculina”) */
+.alt{
+  --bg:#f6f8fb;
+  --panel:#ffffff;
+  --text:#0f172a;       /* slate-900 */
+  --muted:#5b6476;      /* slate-600 */
+  --border:#d7deea;     /* slate-200 */
+  --shadow:0 2px 14px rgba(10,30,60,0.12);
+
+  --accent:#2e5d9f;     /* navy */
+  --accent-2:#108a93;   /* teal */
+  --accent-3:#6b7a8f;   /* slate */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
 body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:16px}
 body.no-scroll{overflow:hidden}
 
+/* Tipografía fluida */
 :root{ --fs-h1:clamp(22px,4vw,30px); --fs-h2:clamp(19px,3vw,24px); --fs-body:clamp(14px,2vw,16px) }
 h1{font-size:var(--fs-h1);line-height:1.13}
 h2,.group-title{font-size:var(--fs-h2);line-height:1.18}
 body,.course-name,.group-subtitle{font-size:var(--fs-body);line-height:1.32}
 
-/* Program meta */
+/* Meta y ciclo actual */
 .program-meta{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
 .meta-badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--accent-2);font-weight:600;font-size:13px}
 .current-cycle{border:2px solid var(--accent-2)!important; box-shadow:0 0 0 3px rgba(122,137,184,.18)!important}
 .current-cycle .group-title::after{content:"  • Ciclo actual"; color:var(--accent-2); font-size:.9em; font-weight:700}
 
 /* Sidebar */
-.sidebar{position:fixed;top:0;left:0;width:300px;min-width:220px;height:100vh;background:var(--panel);border-right:1px solid var(--border);box-shadow:var(--shadow);padding:16px 16px 24px;overflow-y:auto;z-index:100;transition:transform .25s ease}
+.sidebar{
+  position:fixed; top:0; left:0; width:300px; min-width:220px; height:100vh;
+  background:var(--panel); border-right:1px solid var(--border); box-shadow:var(--shadow);
+  padding:16px 16px 24px; overflow-y:auto; z-index:100; transition:transform .25s ease;
+}
 .sidebar-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .sidebar-header h2{font-size:16px;margin:0;font-weight:700}
 .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);background:var(--panel);border-radius:8px;cursor:pointer}
@@ -34,10 +57,20 @@ body,.course-name,.group-subtitle{font-size:var(--fs-body);line-height:1.32}
 .sidebar-section h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 8px}
 .btn-group{display:flex;gap:8px;flex-wrap:wrap}
 .btn-group.vertical{flex-direction:column}
-.view-btn,.filter-btn,.toggle-btn,.action-btn,.icon-btn,.hamburger{min-height:48px;min-width:48px;padding:10px 14px;border-radius:12px;font-size:15px;font-weight:600;appearance:none;-webkit-appearance:none;border:1px solid var(--border);background:var(--panel)}
+
+/* Botones y controles */
+.view-btn,.filter-btn,.toggle-btn,.action-btn,.icon-btn,.hamburger{
+  min-height:48px; min-width:48px; padding:10px 14px; border-radius:12px; font-size:15px; font-weight:600;
+  appearance:none; -webkit-appearance:none; border:1px solid var(--border); background:var(--panel); color:var(--text);
+}
 .view-btn.active,.filter-btn.active,.toggle-btn[aria-pressed="true"]{background:var(--accent-3);color:#131b28;border:none}
 .filter-btn.active{background:var(--accent-2);color:#fff}
 .action-btn.danger{background:#c84c4c;color:#fff;border-color:transparent}
+
+/* Botón de paleta activo (refuerzo visual) */
+#paletteToggle[aria-pressed="true"]{ background:var(--accent-3); color:#131b28; border:none }
+
+/* Búsqueda y switches */
 #searchInput{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid var(--accent-3);background:var(--panel);color:var(--text);box-shadow:var(--shadow)}
 #searchInput:focus{border-color:var(--accent-2);background:#fffde1}
 .switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
@@ -46,10 +79,12 @@ body,.course-name,.group-subtitle{font-size:var(--fs-body);line-height:1.32}
 .slider::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;background:var(--panel);border-radius:50%;box-shadow:var(--shadow);transition:transform .2s}
 .switch input:checked + .slider::after{transform:translateX(20px)}
 .hamburger{position:fixed;top:14px;left:14px;z-index:1100;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--border);background:var(--bg);box-shadow:var(--shadow)}
+
+/* Overlay */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.36);opacity:0;pointer-events:none;transition:opacity .2s;z-index:900}
 .overlay.active{opacity:1;pointer-events:auto}
 
-/* Layout */
+/* Layout principal */
 .page-header{margin-left:320px;padding:24px 24px 8px;background:var(--panel)}
 .title-wrap h1{margin:0 0 4px}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
@@ -75,7 +110,7 @@ body,.course-name,.group-subtitle{font-size:var(--fs-body);line-height:1.32}
 .chart-box{width:100%;max-width:960px}
 .chart-box canvas{background:var(--panel);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);margin-top:10px;width:100%!important;height:250px!important}
 
-/* Grilla cursos */
+/* Malla y grupos */
 main{margin-left:320px;padding:16px 24px 40px;background:var(--bg)}
 .courses-grid.view-ciclos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .courses-grid.view-anos{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:16px}
@@ -98,6 +133,8 @@ main{margin-left:320px;padding:16px 24px 40px;background:var(--bg)}
 .approve-btn.blocked{background:#f4e3e3;color:#ae6c79;cursor:not-allowed}
 .approve-btn:hover:not(.blocked){background:var(--accent-2)}
 .course-extra{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* Campo Nota */
 .grade-row{margin-top:8px;display:flex;align-items:center;gap:8px}
 .grade-label{font-size:13px;color:var(--muted)}
 .grade-input{width:86px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);font-weight:600}
@@ -120,13 +157,12 @@ main{margin-left:320px;padding:16px 24px 40px;background:var(--bg)}
   .sidebar.open{transform:translateX(0)}
   .page-header,.chart-container,main{margin-left:0!important;padding-left:16px!important;padding-right:16px!important}
   .page-header{padding-top:calc(64px + env(safe-area-inset-top,0px))}
-  .hamburger{display:inline-flex}
   .courses-grid.view-ciclos,.courses-grid.view-compacta{grid-template-columns:1fr!important;gap:14px!important}
   .group-body{grid-template-columns:1fr!important;gap:12px!important}
   .modal-content{width:96vw}
   .chart-box canvas{height:220px!important}
 }
-@media (min-width:992px){
+@media (min-width:991px){
   .overlay{display:none!important}
   .hamburger{display:none!important}
   .page-header,.chart-container,main{margin-left:320px!important}

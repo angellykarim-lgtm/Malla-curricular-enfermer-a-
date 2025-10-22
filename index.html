@@ -41,7 +41,17 @@
 
     <section class="sidebar-section">
       <h3>Tema</h3>
-      <button id="themeToggle" class="toggle-btn" aria-pressed="false" aria-label="Alternar modo día/noche">Día/Noche</button>
+      <div class="btn-group">
+        <button id="themeToggle" class="toggle-btn" aria-pressed="false" aria-label="Alternar modo día/noche">Día/Noche</button>
+        <button id="paletteToggle" class="toggle-btn" aria-pressed="false" aria-label="Alternar paleta de color">Paleta Alterna</button>
+      </div>
+      <div style="margin-top:10px">
+        <label class="switch">
+          <input id="showWeightedToggle" type="checkbox" aria-label="Mostrar ponderado por ciclo" />
+          <span class="slider"></span>
+          <span class="switch-label">Mostrar ponderado</span>
+        </label>
+      </div>
     </section>
 
     <section class="sidebar-section">
@@ -139,7 +149,7 @@
     </div>
   </div>
 
-  <!-- Modal Info -->
+  <!-- Modal Info Curso -->
   <div id="courseInfoModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="courseInfoTitle" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">

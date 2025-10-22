@@ -1,4 +1,4 @@
-/* Malla interactiva Enfermería — Script completo */
+/* Malla interactiva Enfermería — Script completo (paleta alterna + switch ponderado) */
 (function () {
   'use strict';
 
@@ -108,17 +108,23 @@
     sound: false,
     filter: 'todos',
     view: 'ciclos',
-    grades: {}
+    grades: {},
+    themeVariant: 'default', // 'default' | 'alt'
+    showWeighted: true
   };
   let state = loadState();
+
   function loadState(){
     try{
       const raw = localStorage.getItem(STATE_KEY);
       if(!raw) return structuredClone(defaultState);
       const parsed = JSON.parse(raw);
-      return { ...structuredClone(defaultState), ...parsed,
+      return {
+        ...structuredClone(defaultState),
+        ...parsed,
         electivesSelection:{...defaultState.electivesSelection, ...(parsed.electivesSelection||{})},
-        grades:{...(parsed.grades||{})} };
+        grades:{...(parsed.grades||{})}
+      };
     }catch{ return structuredClone(defaultState); }
   }
   function saveState(){ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
@@ -160,7 +166,8 @@
       const credits=sumCredits(cycleCourses(cyc));
       const pond=computeCycleWeighted(cyc);
       const sub=card.querySelector('.group-subtitle');
-      if(sub) sub.textContent = `${credits} créditos • Ponderado: ${pond.toFixed(2)}`;
+      const pondText = state.showWeighted ? ` • Ponderado: ${pond.toFixed(2)}` : '';
+      if(sub) sub.textContent = `${credits} créditos${pondText}`;
     });
   }
 
@@ -172,10 +179,30 @@
   closeSidebarBtn?.addEventListener('click', closeSidebar);
   overlay?.addEventListener('click', closeSidebar);
 
-  // ===== Tema/Sonido =====
-  const themeToggle=$('#themeToggle'), soundToggle=$('#soundToggle');
-  function applyTheme(){ document.documentElement.classList.toggle('dark', state.theme==='dark'); themeToggle?.setAttribute('aria-pressed', state.theme==='dark'); }
+  // ===== Tema / Paleta / Sonido =====
+  const themeToggle=$('#themeToggle'), paletteToggle=$('#paletteToggle'), showWeightedToggle=$('#showWeightedToggle'), soundToggle=$('#soundToggle');
+
+  function applyTheme(){
+    document.documentElement.classList.toggle('dark', state.theme==='dark');
+    themeToggle?.setAttribute('aria-pressed', state.theme==='dark');
+  }
+  function applyPalette(){
+    document.documentElement.classList.toggle('alt', state.themeVariant==='alt');
+    paletteToggle?.setAttribute('aria-pressed', state.themeVariant==='alt');
+  }
+
   themeToggle?.addEventListener('click',()=>{ state.theme=state.theme==='dark'?'light':'dark'; saveState(); applyTheme(); });
+  paletteToggle?.addEventListener('click',()=>{ state.themeVariant = state.themeVariant==='alt' ? 'default' : 'alt'; saveState(); applyPalette(); renderAll(); });
+
+  if(showWeightedToggle){
+    showWeightedToggle.checked = !!state.showWeighted;
+    showWeightedToggle.addEventListener('change', ()=>{
+      state.showWeighted = showWeightedToggle.checked;
+      saveState();
+      renderGrid();
+    });
+  }
+
   if(soundToggle){ soundToggle.checked=!!state.sound; soundToggle.addEventListener('change',()=>{ state.sound=soundToggle.checked; saveState(); }); }
 
   // ===== Efectos =====
@@ -304,7 +331,8 @@
       const list=cycleCourses(cyc);
       const credits=sumCredits(list);
       const pond=computeCycleWeighted(cyc);
-      container.appendChild(makeGroupCard(`${cyc}° Ciclo`, `${credits} créditos • Ponderado: ${pond.toFixed(2)}`, list));
+      const pondText = state.showWeighted ? ` • Ponderado: ${pond.toFixed(2)}` : '';
+      container.appendChild(makeGroupCard(`${cyc}° Ciclo`, `${credits} créditos${pondText}`, list));
     }
   }
   function renderByYears(){
@@ -329,7 +357,7 @@
     updateCyclePonderados();
   }
 
-  // Vistas/Filtros/Búsqueda
+  // Vistas / Filtros / Búsqueda
   const searchInput=$('#searchInput');
   const filterBtns=$$('.filter-btn');
   const viewBtns=$$('.view-btn');
@@ -362,27 +390,4 @@
       const code=card.dataset.code; const c=byCode.get(code); const st=getStatus(code);
       let vis=true;
       if(state.filter==='completados' && st!=='completed') vis=false;
-      if(state.filter==='disponibles' && st!=='available') vis=false;
-      if(state.filter==='bloqueados' && st!=='blocked') vis=false;
-      if(q && !(c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q))) vis=false;
-      card.style.display=vis?'':'none';
-
-      const badge=card.querySelector('.badge'); badge.className=`badge ${st}`; badge.textContent=statusText(st);
-      const btn=card.querySelector('.approve-btn');
-      btn.classList.toggle('blocked', st==='blocked');
-      btn.classList.toggle('completed', st==='completed');
-      btn.textContent = st==='completed' ? 'Desaprobar' : 'Aprobar';
-
-      if(code.startsWith('ELC')){
-        const extra=card.querySelector('.course-extra');
-        if(extra) extra.innerHTML=renderElectivoExtra(c);
-      }
-    });
-    updateHeader();
-  }
-
-  // Estadísticas
-  const totalCreditsEl=$('#totalCredits');
-  const completedCountEl=$('#completedCount');
-  const totalCountEl=$('#totalCount');
-  cons
+  

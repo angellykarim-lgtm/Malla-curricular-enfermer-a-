@@ -3,86 +3,108 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Malla Curricular - Enfermería</title>
+  <title>Enfermería</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Overlay móvil -->
   <div id="sidebarOverlay" class="overlay" aria-hidden="true"></div>
+
+  <!-- Menú hamburguesa -->
   <button id="hamburgerMenu" class="hamburger" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
-    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="2" rx="1"></rect><rect x="3" y="11" width="18" height="2" rx="1"></rect><rect x="3" y="16" width="18" height="2" rx="1"></rect></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="2" rx="1"></rect>
+      <rect x="3" y="11" width="18" height="2" rx="1"></rect>
+      <rect x="3" y="16" width="18" height="2" rx="1"></rect>
+    </svg>
   </button>
-  <aside id="sidebar" class="sidebar" aria-label="Barra lateral" aria-hidden="true">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar" aria-label="Barra lateral" aria-hidden="true" role="complementary">
     <div class="sidebar-header">
       <button id="closeSidebar" class="icon-btn" aria-label="Cerrar menú">
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path>
+        </svg>
       </button>
       <h2>Controles</h2>
     </div>
+
     <section class="sidebar-section">
       <h3>Vista</h3>
-      <div class="btn-group">
-        <button class="view-btn active" data-view="ciclos" aria-pressed="true" title="Por Ciclos">Por Ciclos</button>
-        <button class="view-btn" data-view="anos" title="Por Años">Por Años</button>
-        <button class="view-btn" data-view="compacta" title="Compacta">Compacta</button>
+      <div class="btn-group" role="radiogroup" aria-label="Selección de vista">
+        <button class="view-btn active" data-view="ciclos" aria-pressed="true" role="radio">Por Ciclos</button>
+        <button class="view-btn" data-view="anos" aria-pressed="false" role="radio">Por Años</button>
+        <button class="view-btn" data-view="compacta" aria-pressed="false" role="radio">Compacta</button>
       </div>
     </section>
+
     <section class="sidebar-section">
       <h3>Tema</h3>
-      <button id="themeToggle" class="toggle-btn" aria-pressed="false" title="Modo día/noche">Día/Noche</button>
+      <button id="themeToggle" class="toggle-btn" aria-pressed="false" aria-label="Alternar modo día/noche">Día/Noche</button>
     </section>
+
     <section class="sidebar-section">
       <h3>Filtros</h3>
-      <div class="btn-group">
-        <button class="filter-btn active" data-filter="todos">Todos</button>
-        <button class="filter-btn" data-filter="completados">Completados</button>
-        <button class="filter-btn" data-filter="disponibles">Disponibles</button>
-        <button class="filter-btn" data-filter="bloqueados">Bloqueados</button>
+      <div class="btn-group" role="radiogroup" aria-label="Filtro de cursos">
+        <button class="filter-btn active" data-filter="todos" aria-pressed="true" role="radio">Todos</button>
+        <button class="filter-btn" data-filter="completados" aria-pressed="false" role="radio">Completados</button>
+        <button class="filter-btn" data-filter="disponibles" aria-pressed="false" role="radio">Disponibles</button>
+        <button class="filter-btn" data-filter="bloqueados" aria-pressed="false" role="radio">Bloqueados</button>
       </div>
     </section>
+
     <section class="sidebar-section">
       <h3>Búsqueda</h3>
-      <input id="searchInput" type="search" placeholder="Buscar por código o nombre…" aria-label="Buscar cursos" />
+      <input id="searchInput" type="search" aria-label="Buscar por código o nombre…" placeholder="Buscar curso..." />
     </section>
+
     <section class="sidebar-section">
       <h3>Acciones</h3>
       <div class="btn-group vertical">
-        <button id="exportBtn" class="action-btn" title="Exportar Progreso">Exportar Progreso</button>
-        <label for="importFile" class="action-btn" id="importBtn" title="Importar Progreso">Importar Progreso</label>
+        <button id="exportBtn" class="action-btn" aria-label="Exportar progreso">Exportar Progreso</button>
+        <label for="importFile" class="action-btn" id="importBtn" aria-label="Importar progreso">Importar Progreso</label>
         <input id="importFile" type="file" accept="application/json" hidden />
-        <button id="resetBtn" class="action-btn danger" title="Reiniciar Todo">Reiniciar Todo</button>
+        <button id="resetBtn" class="action-btn danger" aria-label="Reiniciar progreso">Reiniciar Todo</button>
       </div>
     </section>
+
     <section class="sidebar-section">
       <h3>Sonido</h3>
       <label class="switch">
-        <input id="soundToggle" type="checkbox" />
+        <input id="soundToggle" type="checkbox" aria-label="Activar efectos de sonido" />
         <span class="slider"></span>
         <span class="switch-label">Efectos de sonido</span>
       </label>
     </section>
   </aside>
+
+  <!-- Header -->
   <header class="page-header">
     <div class="title-wrap">
-      <h1>Malla Curricular - Enfermería</h1>
-      <p class="subtitle">Universidad Privada Norbert Wiener</p>
-    </div>
-    <div class="stats" role="region" aria-label="Estadísticas de avance">
-      <div class="stat-item" role="group" aria-label="Créditos Completados">
-        <div class="stat-title">Créditos Completados</div>
-        <div class="stat-value" id="totalCredits">0 / 222</div>
+      <h1>Enfermería</h1>
+      <div class="program-meta">
+        <span class="meta-badge">Inicio: 2024‑I</span>
+        <span class="meta-badge">Periodo actual: 2025‑II</span>
       </div>
-      <div class="stat-item" role="group" aria-label="Cursos Completados">
+    </div>
+
+    <div class="stats" role="region" aria-label="Estadísticas de progreso">
+      <div class="stat-item">
+        <div class="stat-title">Créditos Completados</div>
+        <div class="stat-value"><span id="totalCredits">0</span> / 222</div>
+      </div>
+      <div class="stat-item">
         <div class="stat-title">Cursos Completados</div>
         <div class="stat-value"><span id="completedCount">0</span> / <span id="totalCount">53</span></div>
       </div>
-      <div class="stat-item" role="group" aria-label="Progreso Total">
+      <div class="stat-item">
         <div class="stat-title">Progreso Total</div>
         <div class="stat-value"><span id="progressPercent">0</span>%</div>
       </div>
     </div>
-    <div class="progress-bar-container" aria-label="Barra de progreso total">
-      <div id="progressBar" class="progress-bar"></div>
-    </div>
+
+    <div class="progress-bar-container"><div id="progressBar" class="progress-bar"></div></div>
     <div id="yearProgress" class="year-progress" aria-label="Progreso por año"></div>
     <div class="legend">
       <span class="legend-item completed">Completado</span>
@@ -90,36 +112,50 @@
       <span class="legend-item blocked">Bloqueado</span>
     </div>
   </header>
+
+  <!-- Gráfico -->
   <section id="chartContainer" class="chart-container" aria-label="Distribución de créditos por ciclo">
-    <div class="chart-header">
-      <h3 id="chartTitle">Distribución de Créditos por Ciclo</h3>
-    </div>
+    <div class="chart-header"><h3>Distribución de Créditos por Ciclo</h3></div>
     <div class="chart-box">
-      <canvas id="creditsChart" role="img" aria-label="Gráfico de barra de créditos por ciclo"></canvas>
+      <canvas id="creditsChart" role="img" aria-label="Gráfico de créditos por ciclo"></canvas>
     </div>
   </section>
+
+  <!-- Malla -->
   <main>
     <div id="ciclosContainer" class="courses-grid view-ciclos" aria-live="polite"></div>
   </main>
+
+  <!-- Modal Electivos -->
   <div id="electivosModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="electivosTitle" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="electivosTitle">Selecciona un Curso Electivo</h3>
-        <button class="icon-btn" id="closeElectivos" aria-label="Cerrar"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg></button>
+        <button class="icon-btn" id="closeElectivos" aria-label="Cerrar electivos">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
+        </button>
       </div>
       <div id="electivosGrid" class="electivos-grid"></div>
     </div>
   </div>
+
+  <!-- Modal Info -->
   <div id="courseInfoModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="courseInfoTitle" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="courseInfoTitle">Información del Curso</h3>
-        <button class="icon-btn" id="closeCourseInfo" aria-label="Cerrar"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg></button>
+        <button class="icon-btn" id="closeCourseInfo" aria-label="Cerrar info">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
+        </button>
       </div>
       <div id="courseInfoBody" class="modal-body"></div>
     </div>
   </div>
+
+  <!-- Confetti -->
   <canvas id="confettiCanvas"></canvas>
+
+  <!-- Librerías -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
